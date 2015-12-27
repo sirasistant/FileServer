@@ -17,11 +17,20 @@ app.post('/files',upload.single('file'),function(req,res){
 	if(req.file!==undefined){
 		res.json({filename:req.file.filename})
 	}else{
-		res.status(404)        // HTTP status 404: NotFound
-   			.send('Not found');
+		res.status(400).send('No file');
 	}
 });
 
 app.listen(config.port||80,function(){
 	console.log("listening");
+});
+
+app.delete('/files/:fileName', function(req,res){
+	fs.unlink(config.directory_path +req.params.fileName, function(err){
+        if (err){
+        	res.status(404).send('not found');
+        }else{
+        	res.sendStatus(200)
+        }
+    });
 });
