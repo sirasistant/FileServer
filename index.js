@@ -10,12 +10,14 @@ var upload = multer({dest:config.directory_path});
 app.use(methodOverride('_method'));
 
 app.get('/files/:fileName', function (req, res) {
+	console.log("Serving file: ",req.params.fileName;
     res.sendFile(config.directory_path +req.params.fileName);
 });
 
 app.post('/files',upload.single('file'),function(req,res){
 	if(req.file!==undefined){
-		res.json({filename:req.file.filename})
+		res.json({filename:req.file.filename});
+		console.log("File named "+req.file.filename+" created")
 	}else{
 		res.status(400).send('No file');
 	}
@@ -30,7 +32,8 @@ app.delete('/files/:fileName', function(req,res){
         if (err){
         	res.status(404).send('not found');
         }else{
-        	res.sendStatus(200)
+        	res.sendStatus(200);
+        	console.log("Deleted file: ",req.params.fileName);
         }
     });
 });
