@@ -10,7 +10,7 @@ var upload = multer({dest:config.directory_path});
 app.use(methodOverride('_method'));
 
 app.get('/files/:fileName', function (req, res) {
-	console.log("Serving file: ",req.params.fileName;
+	console.log("Serving file: ",req.params.fileName);
     res.sendFile(config.directory_path +req.params.fileName);
 });
 
